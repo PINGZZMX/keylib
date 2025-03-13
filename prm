@@ -754,7 +754,7 @@ local function InitializeUI(genv, callback)
             K = cleanedKey
         })
 
-        if response.status == "VALID_KEY" and response.customFlag and string.upper(response.customFlag) == "N/A" then
+        if response.status == "VALID_KEY" and response.customFlag and string.upper(response.customFlag) == "PREMIUM" then
             if rememberKey then
                 writefile(keyFilePath, cleanedKey)
                 showAlert("Key Valid! Access Granted (Key Saved)", true)
