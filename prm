@@ -10,7 +10,6 @@ local function InitializeUI(genv, callback)
     local TextBox = Instance.new("TextBox")
     local ButtonsContainer = Instance.new("Frame")
     local SubmitButton = Instance.new("TextButton")
-    local CopyButton = Instance.new("TextButton")
     local Footer = Instance.new("TextLabel")
     local RememberKeyContainer = Instance.new("Frame")
     local RememberKeyCheckbox = Instance.new("Frame")
@@ -376,19 +375,6 @@ local function InitializeUI(genv, callback)
     SubmitButton.AutoButtonColor = false
     CreateUICorner(SubmitButton, 8)
 
-    CopyButton.Name = "CopyButton"
-    CopyButton.Size = UDim2.new(1, 0, 0, 50)
-    CopyButton.Position = UDim2.new(0, 0, 0, 60)
-    CopyButton.Text = "Copy Keysystem URL"
-    CopyButton.BackgroundColor3 = Color3.fromRGB(100, 100, 255)
-    CopyButton.BackgroundTransparency = 0.2
-    CopyButton.Font = Enum.Font.GothamBold
-    CopyButton.TextSize = 20
-    CopyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    CopyButton.Parent = ButtonsContainer
-    CopyButton.AutoButtonColor = false
-    CreateUICorner(CopyButton, 8)
-
     Footer.Name = "Footer"
     Footer.Size = UDim2.new(1, -40, 0, 20)
     Footer.Position = UDim2.new(0, 20, 1, -25)
@@ -528,7 +514,6 @@ local function InitializeUI(genv, callback)
     end)
 
     setupButtonEffects(SubmitButton, Color3.fromRGB(70, 200, 120), Color3.fromRGB(90, 220, 140))
-    setupButtonEffects(CopyButton, Color3.fromRGB(100, 100, 255), Color3.fromRGB(120, 120, 255))
     setupButtonEffects(CloseButton, Color3.fromRGB(255, 70, 70), Color3.fromRGB(255, 90, 90))
     setupRememberKeyHoverAnimation()
 
@@ -722,29 +707,6 @@ local function InitializeUI(genv, callback)
             print("No valid key found or existing key is empty.")
         end
     end
-
-    local function getServiceURL()
-        local response = sendRequest("https://revolt.kingluc.my.id/live/7-12", {
-            I = genv.ServiceID,
-            H = hwid
-        })
-
-        if response.link then
-            setclipboard(response.link)
-            showAlert("URL copied to clipboard!", true)
-            return response.link
-        elseif response.error then
-            local errorMessages = {
-                MISSING_PARAMS = "Missing Parameters",
-                NOT_FOUND_SERVICE = "Service Not Found"
-            }
-            showAlert(errorMessages[response.error] or "Invalid Key", false)
-        end
-    end
-
-    CopyButton.MouseButton1Click:Connect(function()
-        local url = getServiceURL()
-    end)
 
     SubmitButton.MouseButton1Click:Connect(function()
         local cleanedKey = TextBox.Text:gsub("%s+", "")
