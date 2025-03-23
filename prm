@@ -380,7 +380,7 @@ local function InitializeUI(genv, callback)
 
     PurchaseInfo.Name = "PurchaseInfo"
     PurchaseInfo.Size = UDim2.new(1, 0, 0, 50)
-    PurchaseInfo.Position = UDim2.new(0, 0, 0, 60) -- Position below SubmitButton
+    PurchaseInfo.Position = UDim2.new(0, 0, 0, 80) -- Position below SubmitButton
     PurchaseInfo.BackgroundTransparency = 1
     PurchaseInfo.Text = "Purchase key on: https://pinguindev.mysellauth.com/product/bulletcc or https://discord.gg/pinguindev"
     PurchaseInfo.TextColor3 = Color3.fromRGB(200, 200, 255)
@@ -391,7 +391,7 @@ local function InitializeUI(genv, callback)
     
     WebsiteButton.Name = "WebsiteButton"
     WebsiteButton.Size = UDim2.new(1, 0, 0, 25)
-    WebsiteButton.Position = UDim2.new(0, 0, 0, 120)
+    WebsiteButton.Position = UDim2.new(0, 0, 0, 160)
     WebsiteButton.Text = "Copy Website URL"
     WebsiteButton.BackgroundColor3 = Color3.fromRGB(60, 60, 180)
     WebsiteButton.BackgroundTransparency = 0.2
@@ -404,7 +404,7 @@ local function InitializeUI(genv, callback)
     
     DiscordButton.Name = "DiscordButton"
     DiscordButton.Size = UDim2.new(1, 0, 0, 25)
-    DiscordButton.Position = UDim2.new(0, 0, 0, 155)
+    DiscordButton.Position = UDim2.new(0, 0, 0, 195)
     DiscordButton.Text = "Copy Discord URL"
     DiscordButton.BackgroundColor3 = Color3.fromRGB(114, 137, 218)
     DiscordButton.BackgroundTransparency = 0.2
