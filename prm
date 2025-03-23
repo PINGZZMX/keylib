@@ -10,6 +10,9 @@ local function InitializeUI(genv, callback)
     local TextBox = Instance.new("TextBox")
     local ButtonsContainer = Instance.new("Frame")
     local SubmitButton = Instance.new("TextButton")
+    local PurchaseInfo = Instance.new("TextLabel")
+    local WebsiteButton = Instance.new("TextButton")
+    local DiscordButton = Instance.new("TextButton")
     local Footer = Instance.new("TextLabel")
     local RememberKeyContainer = Instance.new("Frame")
     local RememberKeyCheckbox = Instance.new("Frame")
@@ -357,7 +360,7 @@ local function InitializeUI(genv, callback)
     RememberKeyLabel.Parent = RememberKeyContainer
 
     ButtonsContainer.Name = "ButtonsContainer"
-    ButtonsContainer.Size = UDim2.new(1, -40, 0, 120)
+    ButtonsContainer.Size = UDim2.new(1, -40, 0, 180)
     ButtonsContainer.Position = UDim2.new(0, 20, 0, 220)
     ButtonsContainer.BackgroundTransparency = 1
     ButtonsContainer.Parent = MainFrame
@@ -375,9 +378,46 @@ local function InitializeUI(genv, callback)
     SubmitButton.AutoButtonColor = false
     CreateUICorner(SubmitButton, 8)
 
+    PurchaseInfo.Name = "PurchaseInfo"
+    PurchaseInfo.Size = UDim2.new(1, 0, 0, 40)
+    PurchaseInfo.Position = UDim2.new(0, 0, 0, 60) -- Position below SubmitButton
+    PurchaseInfo.BackgroundTransparency = 1
+    PurchaseInfo.Text = "Purchase key on: https://pinguindev.mysellauth.com/product/bulletcc or https://discord.gg/pinguindev"
+    PurchaseInfo.TextColor3 = Color3.fromRGB(200, 200, 255)
+    PurchaseInfo.Font = Enum.Font.Gotham
+    PurchaseInfo.TextSize = 12
+    PurchaseInfo.TextWrapped = true
+    PurchaseInfo.Parent = ButtonsContainer
+    
+    WebsiteButton.Name = "WebsiteButton"
+    WebsiteButton.Size = UDim2.new(1, 0, 0, 25)
+    WebsiteButton.Position = UDim2.new(0, 0, 0, 110) -- Position below PurchaseInfo
+    WebsiteButton.Text = "Copy Website URL"
+    WebsiteButton.BackgroundColor3 = Color3.fromRGB(60, 60, 180)
+    WebsiteButton.BackgroundTransparency = 0.2
+    WebsiteButton.Font = Enum.Font.GothamBold
+    WebsiteButton.TextSize = 14
+    WebsiteButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    WebsiteButton.Parent = ButtonsContainer
+    WebsiteButton.AutoButtonColor = false
+    CreateUICorner(WebsiteButton, 6)
+    
+    DiscordButton.Name = "DiscordButton"
+    DiscordButton.Size = UDim2.new(1, 0, 0, 25)
+    DiscordButton.Position = UDim2.new(0, 0, 0, 145) -- Position below WebsiteButton
+    DiscordButton.Text = "Copy Discord URL"
+    DiscordButton.BackgroundColor3 = Color3.fromRGB(114, 137, 218) -- Discord color
+    DiscordButton.BackgroundTransparency = 0.2
+    DiscordButton.Font = Enum.Font.GothamBold
+    DiscordButton.TextSize = 14
+    DiscordButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    DiscordButton.Parent = ButtonsContainer
+    DiscordButton.AutoButtonColor = false
+    CreateUICorner(DiscordButton, 6)
+
     Footer.Name = "Footer"
     Footer.Size = UDim2.new(1, -40, 0, 20)
-    Footer.Position = UDim2.new(0, 20, 1, -25)
+    Footer.Position = UDim2.new(0, 20, 1, -20)
     Footer.BackgroundTransparency = 1
     Footer.Text = "Powered by REV<>OLT"
     Footer.TextColor3 = Color3.fromRGB(150, 150, 200)
@@ -515,6 +555,8 @@ local function InitializeUI(genv, callback)
 
     setupButtonEffects(SubmitButton, Color3.fromRGB(70, 200, 120), Color3.fromRGB(90, 220, 140))
     setupButtonEffects(CloseButton, Color3.fromRGB(255, 70, 70), Color3.fromRGB(255, 90, 90))
+    setupButtonEffects(WebsiteButton, Color3.fromRGB(60, 60, 180), Color3.fromRGB(80, 80, 220))
+    setupButtonEffects(DiscordButton, Color3.fromRGB(114, 137, 218), Color3.fromRGB(134, 157, 238))
     setupRememberKeyHoverAnimation()
 
     local function showAlert(message, isSuccess)
@@ -736,6 +778,16 @@ local function InitializeUI(genv, callback)
             }
             showAlert(errorMessages[response.error] or "Invalid Key", false)
         end
+    end)
+
+    WebsiteButton.MouseButton1Click:Connect(function()
+        setclipboard("https://pinguindev.mysellauth.com/product/bulletcc")
+        showAlert("Website URL copied to clipboard!", true)
+    end)
+    
+    DiscordButton.MouseButton1Click:Connect(function()
+        setclipboard("https://discord.gg/pinguindev")
+        showAlert("Discord URL copied to clipboard!", true)
     end)
 
     CloseButton.MouseButton1Click:Connect(function()
