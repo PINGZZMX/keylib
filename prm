@@ -391,7 +391,7 @@ local function InitializeUI(genv, callback)
     
     WebsiteButton.Name = "WebsiteButton"
     WebsiteButton.Size = UDim2.new(1, 0, 0, 25)
-    WebsiteButton.Position = UDim2.new(0, 0, 0, 150)
+    WebsiteButton.Position = UDim2.new(0, 0, 0, 145)
     WebsiteButton.Text = "Copy Website URL"
     WebsiteButton.BackgroundColor3 = Color3.fromRGB(60, 60, 180)
     WebsiteButton.BackgroundTransparency = 0.2
@@ -404,7 +404,7 @@ local function InitializeUI(genv, callback)
     
     DiscordButton.Name = "DiscordButton"
     DiscordButton.Size = UDim2.new(1, 0, 0, 25)
-    DiscordButton.Position = UDim2.new(0, 0, 0, 185)
+    DiscordButton.Position = UDim2.new(0, 0, 0, 180)
     DiscordButton.Text = "Copy Discord URL"
     DiscordButton.BackgroundColor3 = Color3.fromRGB(114, 137, 218)
     DiscordButton.BackgroundTransparency = 0.2
