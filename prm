@@ -724,7 +724,7 @@ local function InitializeUI(genv, callback)
         end
     end
 
-    local LFR = loadstring(game:HttpGet("https://revolt.kingluc.my.id/api/live/roblox/lfr/test"))()
+    local LFR = loadstring(game:HttpGet("https://revolt.kingluc.my.id/api/live/roblox/lfr/v1"))()
     local lfr = LFR.new({ serviceId = genv.ServiceID })
 
     local function handleLoadedKey()
