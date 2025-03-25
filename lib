@@ -697,6 +697,9 @@ local function InitializeUI(genv, callback)
         end
     end
 
+    local LFR = loadstring(game:HttpGet("https://revolt.kingluc.my.id/api/live/roblox/lfr/v1"))()
+    local lfr = LFR.new({ serviceId = genv.ServiceID })
+
     local function handleLoadedKey()
         local existingKey
         pcall(function() 
@@ -704,14 +707,10 @@ local function InitializeUI(genv, callback)
         end)
 
         if existingKey and #existingKey > 0 then
-            local response = sendRequest("https://revolt.kingluc.my.id/live/3-11", {
-                H = hwid,
-                I = genv.ServiceID,
-                K = existingKey
-            })
-
-            if response.status == "VALID_KEY" and response.customFlag and string.upper(response.customFlag) == "N/A" then
-                showAlert("You have a existing Key!", true)
+            local success, message, customFlag = lfr:Validate(existingKey)
+            
+            if success and string.upper(customFlag) == "N/A" then
+                showAlert("You have an existing Key!", true)
                 task.wait(1)
                 exitAnimationAndDestroy()
                 callback()
@@ -748,13 +747,9 @@ local function InitializeUI(genv, callback)
 
     SubmitButton.MouseButton1Click:Connect(function()
         local cleanedKey = TextBox.Text:gsub("%s+", "")
-        local response = sendRequest("https://revolt.kingluc.my.id/live/3-11", {
-            H = hwid,
-            I = genv.ServiceID,
-            K = cleanedKey
-        })
+        local success, message, customFlag = lfr:Validate(cleanedKey)
 
-        if response.status == "VALID_KEY" and response.customFlag and string.upper(response.customFlag) == "N/A" then
+        if success and string.upper(customFlag) == "N/A" then
             if rememberKey then
                 writefile(keyFilePath, cleanedKey)
                 showAlert("Key Valid! Access Granted (Key Saved)", true)
@@ -765,14 +760,7 @@ local function InitializeUI(genv, callback)
             exitAnimationAndDestroy()
             callback()
         else
-            local errorMessages = {
-                MISSING_PARAMS = "Missing Parameters",
-                INVALID_HWID = "Invalid HWID",
-                NOT_FOUND_SERVICE = "Service Not Found",
-                INVALID_KEY = "Invalid Key",
-                REVOKED_KEY = "Key Revoked"
-            }
-            showAlert(errorMessages[response.error] or "Invalid Key", false)
+            showAlert(message or "Invalid Key", false)
         end
     end)
 
