@@ -723,21 +723,18 @@ local function InitializeUI(genv, callback)
     end
 
     local function getServiceURL()
-        local response = sendRequest("https://revolt.kingluc.my.id/live/7-12", {
-            I = genv.ServiceID,
-            H = hwid
-        })
-
-        if response.link then
-            setclipboard(response.link)
+        local success, message, link = lfr:GenerateLink()
+    
+        if link then
+            setclipboard(link)
             showAlert("URL copied to clipboard!", true)
-            return response.link
-        elseif response.error then
+            return link
+        elseif not success then
             local errorMessages = {
                 MISSING_PARAMS = "Missing Parameters",
                 NOT_FOUND_SERVICE = "Service Not Found"
             }
-            showAlert(errorMessages[response.error] or "Invalid Key", false)
+            showAlert(errorMessages[message] or "Invalid Key", false)
         end
     end
 
